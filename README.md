@@ -1,14 +1,17 @@
 # Government Training Management System — Practical Test Task 1
 
 ## Task 1
+
 Prevent the same officer from being nominated more than once for the same training programme.
 
 ### Rule
+
 `OFFICER + TRAINING = UNIQUE`
 
 The department is intentionally NOT part of the uniqueness rule.
 
 ## Technology
+
 - Java 17
 - Spring Boot 3.5.5
 - Spring Web
@@ -17,6 +20,7 @@ The department is intentionally NOT part of the uniqueness rule.
 - HTML / CSS / JavaScript
 
 ## Run
+
 1. Open this folder in IntelliJ IDEA or VS Code.
 2. Make sure Java 17+ and Maven are installed.
 3. Run:
@@ -30,6 +34,7 @@ mvn spring-boot:run
 `http://localhost:8080`
 
 ## Test Task 1
+
 1. Select John Perera.
 2. Select Finance Division.
 3. Select Java Programming.
@@ -46,6 +51,7 @@ Expected message:
 "This officer has already been nominated for this training programme."
 
 ## API endpoints
+
 GET `/api/officers`
 GET `/api/departments`
 GET `/api/trainings`
@@ -74,6 +80,7 @@ HTTP `409 Conflict`
 ```
 
 ## Database protection
+
 The Nomination entity contains:
 
 ```java
@@ -86,6 +93,7 @@ The Nomination entity contains:
 This protects the database from duplicate nominations even if two requests arrive at nearly the same time.
 
 ## H2 Console
+
 URL:
 `http://localhost:8080/h2-console`
 
@@ -99,6 +107,7 @@ Password:
 leave empty
 
 ## Repository Tasks
+
 - task 1
 - task2
 - task 3
