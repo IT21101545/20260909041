@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <div>
+        <h1>Training Management System</h1>
+        <p>Task 1 — Duplicate Nomination Prevention</p>
+    </div>
+</header>
+
+<main>
+    <section class="card">
+        <h2>Create Nomination</h2>
+        <p class="hint">The same officer cannot be nominated twice for the same training programme.</p>
+
+        <form id="nominationForm">
+            <label>Officer</label>
+            <select id="officer" required></select>
+
+            <label>Department</label>
+            <select id="department" required></select>
+
+            <label>Training Programme</label>
+            <select id="training" required></select>
+
+            <button type="submit">Submit Nomination</button>
+        </form>
+
+        <div id="message" class="message"></div>
+    </section>
+
+    <section class="card">
+        <div class="section-title">
+            <h2>Current Nominations</h2>
+            <button class="secondary" onclick="loadNominations()">Refresh</button>
+        </div>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                <tr>
+                    <th>Officer</th>
+                    <th>Department</th>
+                    <th>Training</th>
+                    <th>Nominated At</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody id="nominationTable"></tbody>
+            </table>
+        </div>
+    </section>
+
+
+
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    color: #1f2937;
+}
+
+header {
+    background: #1f3c88;
+    color: white;
+    padding: 28px 8%;
+}
+
+header h1 {
+    margin: 0 0 6px;
+    font-size: 28px;
+}
+
+header p {
+    margin: 0;
+    opacity: .9;
+}
+
+main {
+    width: 90%;
+    max-width: 1000px;
+    margin: 28px auto;
+}
+
+.card, .info {
+    background: white;
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 22px;
+    box-shadow: 0 3px 12px rgba(0,0,0,.08);
+}
+
+h2 {
+    margin-top: 0;
+}
+
+.hint {
+    color: #667085;
+}
+
+label {
+    display: block;
+    margin-top: 16px;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+select {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    background: white;
+}
+
+button {
+    margin-top: 20px;
+    padding: 11px 18px;
+    border: 0;
+    border-radius: 6px;
+    background: #1f3c88;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    opacity: .9;
+}
+
+button.secondary {
+    margin-top: 0;
+    background: #667085;
+}
+
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.message {
+    display: none;
+    margin-top: 18px;
+    padding: 12px;
+    border-radius: 6px;
+}
+
+.message.success {
+    display: block;
+    background: #e8f7ee;
+    color: #18794e;
+}
+
+.message.error {
+    display: block;
+    background: #fdecec;
+    color: #b42318;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: left;
+}
+
+th {
+    background: #f8fafc;
+}
+
+.info {
+    border-left: 5px solid #1f3c88;
+}
+
+.badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.status-confirmed {
+    background: #e8f7ee;
+    color: #18794e;
+}
+
+.status-waitlisted {
+    background: #fff4e5;
+    color: #b26a00;
+}
+
+.status-cancelled {
+    background: #f1f2f4;
+    color: #667085;
+}
+
+@media (max-width: 650px) {
+    header {
+        padding: 22px 5%;
+    }
+
+    main {
+        width: 94%;
+    }
+}
