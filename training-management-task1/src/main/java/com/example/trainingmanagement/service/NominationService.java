@@ -1,15 +1,23 @@
 package com.example.trainingmanagement.service;
 
-import com.example.trainingmanagement.dto.NominationRequest;
-import com.example.trainingmanagement.entity.*;
-import com.example.trainingmanagement.exception.DuplicateNominationException;
-import com.example.trainingmanagement.repository.*;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.util.List;
+
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import com.example.trainingmanagement.dto.NominationRequest;
+import com.example.trainingmanagement.entity.Department;
+import com.example.trainingmanagement.entity.Nomination;
+import com.example.trainingmanagement.entity.Officer;
+import com.example.trainingmanagement.entity.Training;
+import com.example.trainingmanagement.exception.DuplicateNominationException;
+import com.example.trainingmanagement.repository.DepartmentRepository;
+import com.example.trainingmanagement.repository.NominationRepository;
+import com.example.trainingmanagement.repository.OfficerRepository;
+import com.example.trainingmanagement.repository.TrainingRepository;
 
 @Service
 public class NominationService {
@@ -22,35 +30,42 @@ public class NominationService {
     private final OfficerRepository officerRepository;
     private final TrainingRepository trainingRepository;
     private final DepartmentRepository departmentRepository;
+    private final EligibilityService eligibilityService;
 
     public NominationService(
             NominationRepository nominationRepository,
             OfficerRepository officerRepository,
             TrainingRepository trainingRepository,
-            DepartmentRepository departmentRepository) {
+            DepartmentRepository departmentRepository,
+            EligibilityService eligibilityService) {
         this.nominationRepository = nominationRepository;
         this.officerRepository = officerRepository;
         this.trainingRepository = trainingRepository;
         this.departmentRepository = departmentRepository;
+        this.eligibilityService = eligibilityService;
     }
 
     @Transactional
     public Nomination create(NominationRequest request) {
-        nominationRepository
-                .findByOfficerIdAndTrainingId(request.getOfficerId(), request.getTrainingId())
+        LocalDateTime duplicateCutoff = LocalDateTime.now().minus(Period.ofMonths(12));
+        if (nominationRepository.existsByOfficerIdAndTrainingIdAndNominatedAtAfterAndStatusNot(
+            request.getOfficerId(), request.getTrainingId(), duplicateCutoff, STATUS_CANCELLED)) {
+            nominationRepository.findByOfficerIdAndTrainingId(request.getOfficerId(), request.getTrainingId())
                 .ifPresent(existing -> {
-                    throw new DuplicateNominationException(String.format(
-                        "This officer has already been nominated for this training programme "
-                        + "by %s. Duplicate nomination from another department is not allowed.",
-                        existing.getDepartment().getName()
-                    ));
+                throw new DuplicateNominationException(String.format(
+                    "This officer has already been nominated for this training programme "
+                        + "by %s within the last 12 months.",
+                    existing.getDepartment().getName()));
                 });
+        }
 
         Officer officer = officerRepository.findById(request.getOfficerId())
                 .orElseThrow(() -> new IllegalArgumentException("Officer not found."));
 
         Training training = trainingRepository.findById(request.getTrainingId())
                 .orElseThrow(() -> new IllegalArgumentException("Training programme not found."));
+
+        eligibilityService.validate(officer, training);
 
         Department department = departmentRepository.findById(request.getDepartmentId())
                 .orElseThrow(() -> new IllegalArgumentException("Department not found."));

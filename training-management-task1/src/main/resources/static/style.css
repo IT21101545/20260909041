@@ -47,6 +47,51 @@ h2 {
     color: #667085;
 }
 
+.profile-card {
+    border-left: 5px solid #18794e;
+}
+
+.details, .rules {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 18px;
+    margin-top: 14px;
+}
+
+.details span, .rules span {
+    color: #475467;
+}
+
+.rules {
+    padding-top: 14px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.empty {
+    color: #667085;
+}
+
+.error-text {
+    color: #b42318;
+}
+
+.eligibility-preview {
+    margin-top: 18px;
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.eligibility-preview.eligible {
+    background: #e8f7ee;
+    color: #18794e;
+}
+
+.eligibility-preview.ineligible {
+    background: #fdecec;
+    color: #b42318;
+}
+
 label {
     display: block;
     margin-top: 16px;
